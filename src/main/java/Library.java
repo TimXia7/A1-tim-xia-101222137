@@ -6,8 +6,12 @@ import java.util.Objects;
 
 public class Library {
     private Catalogue catalogue;
+    private BorrowerList borrowerList;
 
-    public Library() { catalogue = new Catalogue(); }
+    public Library() {
+        catalogue = new Catalogue();
+        borrowerList = new BorrowerList();
+    }
 
     public void initializeLibrary() {
         try (InputStream input = getClass().getResourceAsStream("/books.txt");
@@ -27,9 +31,10 @@ public class Library {
         }
     }
 
+    public void initializeBorrowers(){}
+
 
     public int getCatalogueSize(){ return catalogue.getSize(); }
-
     public Book getBookByTitle(String title){
         Book book;
         for (int i = 0 ; i < catalogue.getSize(); ++i){
@@ -40,12 +45,22 @@ public class Library {
         }
         return null;
     }
-
     public Book getBookByIndex(int index) {
         if (index < 0 || index >= catalogue.getSize()) {
             return null;
         }
         return catalogue.getBook(index);
+    }
+    public int getBorrowersSize() { return 0; }
+    public Borrower getBorrowerByName(String username){
+        Borrower borrower = new Borrower("", "");
+        return borrower;
+    }
+    public Borrower getBorrowerByIndex(int index) {
+        if (index < 0 || index >= borrowerList.getSize()) {
+            return null;
+        }
+        return borrowerList.getBorrower(index);
     }
 
 
