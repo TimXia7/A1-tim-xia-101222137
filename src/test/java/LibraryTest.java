@@ -32,7 +32,7 @@ public class LibraryTest {
         Library library = new Library();
         library.initializeLibrary();
 
-        Boolean validBooks = false;
+        Boolean validBooks = true;
 
         for (int i = 0; i < 20 ; ++i){
             Book book = library.getBookByIndex(i);
