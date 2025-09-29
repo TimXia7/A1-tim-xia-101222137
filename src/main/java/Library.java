@@ -31,7 +31,24 @@ public class Library {
         }
     }
 
-    public void initializeBorrowers(){}
+    public void initializeBorrowers() {
+        try (InputStream input = getClass().getResourceAsStream("/borrowers.txt");
+             BufferedReader reader = new BufferedReader(new InputStreamReader(input))) {
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",", 2);
+                if (parts.length == 2) {
+                    String username = parts[0].trim();
+                    String password = parts[1].trim();
+                    borrowerList.addBorrower(new Borrower(username, password));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
     public int getCatalogueSize(){ return catalogue.getSize(); }
@@ -51,10 +68,16 @@ public class Library {
         }
         return catalogue.getBook(index);
     }
-    public int getBorrowersSize() { return 0; }
+    public int getBorrowersSize() { return borrowerList.getSize(); }
     public Borrower getBorrowerByName(String username){
-        Borrower borrower = new Borrower("", "");
-        return borrower;
+        Borrower borrower;
+        for (int i = 0 ; i < borrowerList.getSize(); ++i){
+            borrower = borrowerList.getBorrower(i);
+            if (Objects.equals(borrower.getUsername(), username)){
+                return borrower;
+            }
+        }
+        return null;
     }
     public Borrower getBorrowerByIndex(int index) {
         if (index < 0 || index >= borrowerList.getSize()) {
