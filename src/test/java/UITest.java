@@ -92,18 +92,17 @@ public class UITest {
     @Test
     @DisplayName("After login, available operations should be presented: borrow a book")
     void RESP_07_test_01() {
-        // capture printed output
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outContent));
 
-        ByteArrayInputStream inContent = new ByteArrayInputStream("Bob_White\nPassword123\n1\n".getBytes());
+        ByteArrayInputStream inContent = new ByteArrayInputStream("1\n".getBytes());
         System.setIn(inContent);
 
         // init the library and UI
         Library library = new Library();
         LibraryUI ui = new LibraryUI(library);
-        ui.run();
+        ui.mainOptions();
 
         System.setOut(originalOut);
         System.setIn(System.in);
@@ -116,18 +115,17 @@ public class UITest {
     @Test
     @DisplayName("After login, available operations should be presented: return a book")
     void RESP_07_test_02() {
-        // capture printed output
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outContent));
 
-        ByteArrayInputStream inContent = new ByteArrayInputStream("Bob_White\nPassword123\n1\n".getBytes());
+        ByteArrayInputStream inContent = new ByteArrayInputStream("1\n".getBytes());
         System.setIn(inContent);
 
         // init the library and UI
         Library library = new Library();
         LibraryUI ui = new LibraryUI(library);
-        ui.run();
+        ui.mainOptions();
 
         System.setOut(originalOut);
         System.setIn(System.in);
@@ -140,18 +138,17 @@ public class UITest {
     @Test
     @DisplayName("After login, available operations should be presented: logout")
     void RESP_07_test_03() {
-        // capture printed output
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outContent));
 
-        ByteArrayInputStream inContent = new ByteArrayInputStream("Bob_White\nPassword123\n1\n".getBytes());
+        ByteArrayInputStream inContent = new ByteArrayInputStream("1\n".getBytes());
         System.setIn(inContent);
 
         // init the library and UI
         Library library = new Library();
         LibraryUI ui = new LibraryUI(library);
-        ui.run();
+        ui.mainOptions();
 
         System.setOut(originalOut);
         System.setIn(System.in);

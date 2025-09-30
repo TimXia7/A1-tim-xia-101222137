@@ -120,49 +120,43 @@ public class ValidationTest {
     }
 
     @Test
-    @DisplayName("Successful login assigns a session token to the borrower")
+    @DisplayName("Successful logout displays message: Press 1 to Confirm the Logout")
     void RESP_025_test_01() {
-        // capture printed output
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outContent));
 
-        ByteArrayInputStream inContent = new ByteArrayInputStream("Bob_White\nPassword123\n0\n1\n".getBytes());
+        ByteArrayInputStream inContent = new ByteArrayInputStream("1\n".getBytes());
         System.setIn(inContent);
 
-        // init the library and UI
         Library library = new Library();
         LibraryUI ui = new LibraryUI(library);
-        ui.run();
+        ui.confirmLogout();
 
         System.setOut(originalOut);
         System.setIn(System.in);
 
-        // Check that the password prompt was printed
         String output = outContent.toString();
         assertTrue(output.contains("Press 1 to Confirm the Logout"));
     }
 
     @Test
-    @DisplayName("Successful login assigns a session token to the borrower")
+    @DisplayName("Successful logout displays message: Press 2 to return to the Main Menu")
     void RESP_025_test_02() {
-        // capture printed output
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outContent));
 
-        ByteArrayInputStream inContent = new ByteArrayInputStream("Bob_White\nPassword123\n0\n1\n".getBytes());
+        ByteArrayInputStream inContent = new ByteArrayInputStream("1\n".getBytes());
         System.setIn(inContent);
 
-        // init the library and UI
         Library library = new Library();
         LibraryUI ui = new LibraryUI(library);
-        ui.run();
+        ui.confirmLogout();
 
         System.setOut(originalOut);
         System.setIn(System.in);
 
-        // Check that the password prompt was printed
         String output = outContent.toString();
         assertTrue(output.contains("Press 2 to return to the Main Menu"));
     }

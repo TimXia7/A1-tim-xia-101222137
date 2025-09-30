@@ -100,22 +100,17 @@ public class LibraryTest {
     }
 
     @Test
-    @DisplayName("Borrower book count should say 0")
+    @DisplayName("Borrower book count should be 0")
     void RESP_08_test_01(){
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outContent));
 
-        ByteArrayInputStream inContent = new ByteArrayInputStream("Bob_White\nPassword123\n1\n".getBytes());
-        System.setIn(inContent);
-
-        // init the library and UI
         Library library = new Library();
         LibraryUI ui = new LibraryUI(library);
-        ui.run();
 
-        System.setOut(originalOut);
-        System.setIn(System.in);
+        Borrower borrower = library.getBorrowerByName("Bob_White");
+        library.login("Bob_White", "Password123");
+        ui.borrowOptions();
 
         String output = outContent.toString();
         assertTrue(output.contains("Books currently borrowed: 0"));
@@ -125,22 +120,17 @@ public class LibraryTest {
     @DisplayName("Borrower book count should say 3")
     void RESP_08_test_02(){
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outContent));
 
-        ByteArrayInputStream inContent = new ByteArrayInputStream("Bob_White\nPassword123\n1\n".getBytes());
-        System.setIn(inContent);
-
-        // init the library and UI
         Library library = new Library();
-        library.getBorrowerByName("Bob_White").addBook(new Book("book1", "book1"));
-        library.getBorrowerByName("Bob_White").addBook(new Book("book2", "book2"));
-        library.getBorrowerByName("Bob_White").addBook(new Book("book3", "book3"));
         LibraryUI ui = new LibraryUI(library);
-        ui.run();
 
-        System.setOut(originalOut);
-        System.setIn(System.in);
+        Borrower borrower = library.getBorrowerByName("Bob_White");
+        borrower.addBook(new Book("book1", "book1"));
+        borrower.addBook(new Book("book2", "book2"));
+        borrower.addBook(new Book("book3", "book3"));
+        library.login("Bob_White", "Password123");
+        ui.borrowOptions();
 
         String output = outContent.toString();
         assertTrue(output.contains("Books currently borrowed: 3"));
@@ -150,19 +140,14 @@ public class LibraryTest {
     @DisplayName("The Great Gatsby should be in the catalogue")
     void RESP_09_test_01(){
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outContent));
 
-        ByteArrayInputStream inContent = new ByteArrayInputStream("Bob_White\nPassword123\n1\n".getBytes());
-        System.setIn(inContent);
-
-        // init the library and UI
         Library library = new Library();
         LibraryUI ui = new LibraryUI(library);
-        ui.run();
 
-        System.setOut(originalOut);
-        System.setIn(System.in);
+        Borrower borrower = library.getBorrowerByName("Bob_White");
+        library.login("Bob_White", "Password123");
+        ui.borrowOptions();
 
         String output = outContent.toString();
         assertTrue(output.contains("The Great Gatsby | Author: F. Scott Fitzgerald"));
@@ -172,21 +157,15 @@ public class LibraryTest {
     @DisplayName("The due date should display a book has one, Threads of Tomorrow on 2025-09-30")
     void RESP_09_test_02(){
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outContent));
 
-        ByteArrayInputStream inContent = new ByteArrayInputStream("Bob_White\nPassword123\n1\n".getBytes());
-        System.setIn(inContent);
-
-        // init the library and UI
         Library library = new Library();
+        LibraryUI ui = new LibraryUI(library);
         library.getBookByTitle("Threads of Tomorrow").setAvailabilityStatus(Book.Status.CHECKED_OUT);
         library.getBookByTitle("Threads of Tomorrow").setDueDate("2025-09-30");
-        LibraryUI ui = new LibraryUI(library);
-        ui.run();
 
-        System.setOut(originalOut);
-        System.setIn(System.in);
+        library.login("Bob_White", "Password123");
+        ui.borrowOptions();
 
         String output = outContent.toString();
         assertTrue(output.contains("2025-09-30"));
