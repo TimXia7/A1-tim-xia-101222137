@@ -30,24 +30,24 @@ public class LibraryUI {
 
     // === UI helper methods ===
     public String[] promptCredentials() {
-        clearScreen();
         System.out.print("Enter username: ");
         String username = scanner.nextLine();
 
         System.out.print("Enter password: ");
         String password = scanner.nextLine();
 
+        clearScreen();
         return new String[]{username, password};
     }
 
     public int mainOptions() {
-        clearScreen();
         System.out.print("Please enter an operation (1,2,0) \n");
         System.out.print("1: Borrow a Book \n");
         System.out.print("2: Return a book \n");
         System.out.print("3: Logout \n");
         String choice = scanner.nextLine();
 
+        clearScreen();
         try {
             return Integer.parseInt(choice);
         } catch (NumberFormatException e) {
@@ -61,7 +61,10 @@ public class LibraryUI {
     }
 
     private void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        for (int i = 0; i < 50; i++) {
+            System.out.println();
+        }
     }
+
+
 }

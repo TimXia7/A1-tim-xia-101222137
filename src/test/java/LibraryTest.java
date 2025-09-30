@@ -100,6 +100,11 @@ public class LibraryTest {
                 !borrower.getPassword().isEmpty();
     }
 
+    @Test
+    @DisplayName("All borrower accounts should have a username and password")
+    void RESP_08_test_01(){
+
+    }
 
 
 }
