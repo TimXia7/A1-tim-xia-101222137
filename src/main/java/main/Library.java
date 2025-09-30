@@ -15,6 +15,9 @@ public class Library {
         catalogue = new Catalogue();
         borrowerList = new BorrowerList();
         securityManager = new SecurityManager(this, "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$");
+
+        initializeLibrary();
+        initializeBorrowers();
     }
 
     public void initializeLibrary() {

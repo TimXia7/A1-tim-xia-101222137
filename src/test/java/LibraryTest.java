@@ -15,7 +15,6 @@ public class LibraryTest {
     @DisplayName("main.Library catalogue size should be 20 upon initialization.")
     void RESP_01_test_01(){
         Library library = new Library();
-        library.initializeLibrary();
 
         int size = library.getCatalogueSize();
         assertEquals(20, size);
@@ -25,7 +24,6 @@ public class LibraryTest {
     @DisplayName("main.Library should have a specific book after initialization - The Great Gatsby.")
     void RESP_01_test_02(){
         Library library = new Library();
-        library.initializeLibrary();
 
         Book targetBook = library.getBookByTitle("The Great Gatsby");
         String targetBookTitle = targetBook.getTitle();
@@ -36,7 +34,6 @@ public class LibraryTest {
     @DisplayName("Ensure that all books in the catalogue have valid data.")
     void RESP_01_test_03(){
         Library library = new Library();
-        library.initializeLibrary();
 
         Boolean validBooks = true;
 
@@ -62,7 +59,6 @@ public class LibraryTest {
     @DisplayName("The library should have 3 borrower accounts.")
     void RESP_02_test_01(){
         Library library = new Library();
-        library.initializeBorrowers();
 
         int size = library.getBorrowersSize();
         assertEquals(3, size);
@@ -72,7 +68,6 @@ public class LibraryTest {
     @DisplayName("main.Library should have a specific borrower after initialization - Bob_White")
     void RESP_02_test_02(){
         Library library = new Library();
-        library.initializeBorrowers();
 
         Borrower targetBorrower = library.getBorrowerByName("Bob_White");
         String targetBorrowerName = targetBorrower.getUsername();
@@ -83,7 +78,6 @@ public class LibraryTest {
     @DisplayName("All borrower accounts should have a username and password")
     void RESP_02_test_03(){
         Library library = new Library();
-        library.initializeBorrowers();
 
         Boolean validBorrowers = true;
 
@@ -117,7 +111,6 @@ public class LibraryTest {
 
         // init the library and UI
         Library library = new Library();
-        library.initializeBorrowers();
         LibraryUI ui = new LibraryUI(library);
         ui.run();
 
@@ -141,7 +134,6 @@ public class LibraryTest {
 
         // init the library and UI
         Library library = new Library();
-        library.initializeBorrowers();
         library.getBorrowerByName("Bob_White").addBook(new Book("book1", "book1"));
         library.getBorrowerByName("Bob_White").addBook(new Book("book2", "book2"));
         library.getBorrowerByName("Bob_White").addBook(new Book("book3", "book3"));
