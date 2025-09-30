@@ -1,19 +1,32 @@
+import java.util.regex.Pattern;
 
 public class SecurityManager {
 
-    private String regex;
+    private final String regex;
 
-    // package private constructor
-    SecurityManager(String regex){
+    // package-private constructor
+    SecurityManager(String regex) {
         this.regex = regex;
     }
 
     // 0 = successful validate
     // 1 = regex error
     // 2 = does not match existing entry
-    public static int validate(String username, String password){
+    public int validate(String username, String password) {
+        // 1. Check regex
+        if (password == null || !Pattern.matches(regex, password)) {
+            return 1;
+        }
 
-        return -1;
+        // 2. Check borrower list
+        Library library = new Library();
+        library.initializeBorrowers();
+
+        Borrower borrower = library.getBorrowerByName(username);
+        if (borrower == null || !borrower.getPassword().equals(password)) {
+            return 2;
+        }
+
+        return 0;
     }
-
 }

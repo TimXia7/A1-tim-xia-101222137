@@ -55,7 +55,7 @@ public class Library {
     // 1 = regex error
     // 2 = does not match entry in DB
     public int validate(String username, String password) {
-        return SecurityManager.validate(username, password);
+        return securityManager.validate(username, password);
     }
 
 
