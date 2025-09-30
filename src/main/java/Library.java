@@ -7,10 +7,12 @@ import java.util.Objects;
 public class Library {
     private Catalogue catalogue;
     private BorrowerList borrowerList;
+    private final SecurityManager securityManager;
 
     public Library() {
         catalogue = new Catalogue();
         borrowerList = new BorrowerList();
+        securityManager = new SecurityManager("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$");
     }
 
     public void initializeLibrary() {
@@ -49,8 +51,15 @@ public class Library {
         }
     }
 
+    // 0 = for successful validation: username and password are valid, matches username and password in DB
+    // 1 = regex error
+    // 2 = does not match entry in DB
+    public int validate(String username, String password) {
+        return SecurityManager.validate(username, password);
+    }
 
 
+    // Getters and setters
     public int getCatalogueSize(){ return catalogue.getSize(); }
     public Book getBookByTitle(String title){
         Book book;
