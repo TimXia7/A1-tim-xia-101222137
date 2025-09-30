@@ -55,15 +55,7 @@ public class Library {
     }
 
 
-    // Validation wrappers:
-
-    // 0 = for successful validation: username and password are valid, matches username and password in DB
-    // 1 = regex error
-    // 2 = does not match entry in DB
-    public int validate(String username, String password) {
-        return securityManager.validate(username, password);
-    }
-
+    // Validation wrapper:
     // returns borrower token
     public String login(String username, String password) {
         return securityManager.login(username, password);
