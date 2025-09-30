@@ -1,4 +1,5 @@
 
+import main.*;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -6,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class LibraryTest {
 
     @Test
-    @DisplayName("Library catalogue size should be 20 upon initialization.")
+    @DisplayName("main.Library catalogue size should be 20 upon initialization.")
     void RESP_01_test_01(){
         Library library = new Library();
         library.initializeLibrary();
@@ -16,7 +17,7 @@ public class LibraryTest {
     }
 
     @Test
-    @DisplayName("Library should have a specific book after initialization - The Great Gatsby.")
+    @DisplayName("main.Library should have a specific book after initialization - The Great Gatsby.")
     void RESP_01_test_02(){
         Library library = new Library();
         library.initializeLibrary();
@@ -63,7 +64,7 @@ public class LibraryTest {
     }
 
     @Test
-    @DisplayName("Library should have a specific borrower after initialization - Bob_White")
+    @DisplayName("main.Library should have a specific borrower after initialization - Bob_White")
     void RESP_02_test_02(){
         Library library = new Library();
         library.initializeBorrowers();

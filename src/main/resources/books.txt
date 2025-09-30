@@ -1,6 +1,6 @@
 The Great Gatsby, F. Scott Fitzgerald
 Moonlight Over Ashes, Clara Jennings
-I Wrote This Book for COMP 4004, Tim Xia
+I Wrote This main.Book for COMP 4004, Tim Xia
 Echoes in the Wind, Lillian Cross
 The Broken Compass, Adrian Wolfe
 This Assignment is Taking a Long Time, Tim Xia
@@ -16,5 +16,5 @@ The Distant Echo, Oliver Stone
 Threads of Tomorrow, Naomi Clarke
 To be Fair This Assignment is Teaching me a lot, Tim Xia
 A Song of Ash and Glass, Penelope Reed
-I Searched up Random Book Names, Tim Xia
+I Searched up Random main.Book Names, Tim Xia
 The Painted Veil, Margaret Ellis

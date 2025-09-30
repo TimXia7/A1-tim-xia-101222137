@@ -1,3 +1,5 @@
+package main;
+
 import java.util.UUID;
 import java.util.regex.Pattern;
 
@@ -6,8 +8,7 @@ public class SecurityManager {
     private final String regex;
     private Library library;
 
-    // package-private constructor
-    SecurityManager(Library library, String regex) {
+    public SecurityManager(Library library, String regex) {
         this.regex = regex;
         this.library = library;
     }
@@ -20,7 +21,7 @@ public class SecurityManager {
             return null;
         }
 
-        // Borrower is valid, assign a session token
+        // main.Borrower is valid, assign a session token
         library.initializeBorrowers();
 
         Borrower borrower = library.getBorrowerByName(username);

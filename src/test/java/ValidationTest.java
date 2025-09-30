@@ -1,9 +1,7 @@
+import main.*;
+import main.SecurityManager;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,70 +12,70 @@ public class ValidationTest {
     @Test
     @DisplayName("Default pass scenario, username and password are valid and match a existing borrower")
     void RESP_04_test_01() {
-        SecurityManager securityManager = new SecurityManager(new Library(), "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$");
+        SecurityManager securityManager = new main.SecurityManager(new Library(), "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$");
         assertEquals(0, securityManager.validate("Bob_White", "Password123"));
     }
 
     @Test
     @DisplayName("Fail scenario: password does not have a number")
     void RESP_04_test_02() {
-        SecurityManager securityManager = new SecurityManager(new Library(), "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$");
+        main.SecurityManager securityManager = new main.SecurityManager(new Library(), "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$");
         assertEquals(1, securityManager.validate("Bob_White", "Password"));
     }
 
     @Test
     @DisplayName("Fail scenario: password does not have an uppercase letter")
     void RESP_04_test_03() {
-        SecurityManager securityManager = new SecurityManager(new Library(), "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$");
+        main.SecurityManager securityManager = new main.SecurityManager(new Library(), "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$");
         assertEquals(1, securityManager.validate("Bob_White", "password123"));
     }
 
     @Test
     @DisplayName("Fail scenario: password does not have a lowercase letter")
     void RESP_04_test_04() {
-        SecurityManager securityManager = new SecurityManager(new Library(), "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$");
+        main.SecurityManager securityManager = new main.SecurityManager(new Library(), "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$");
         assertEquals(1, securityManager.validate("Bob_White", "PASSWORD123"));
     }
 
     @Test
     @DisplayName("Fail scenario: password is only numbers")
     void RESP_04_test_05() {
-        SecurityManager securityManager = new SecurityManager(new Library(), "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$");
+        main.SecurityManager securityManager = new main.SecurityManager(new Library(), "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$");
         assertEquals(1, securityManager.validate("Bob_White", "123123123"));
     }
 
     @Test
     @DisplayName("Fail scenario: password is only lower case letters")
     void RESP_04_test_06() {
-        SecurityManager securityManager = new SecurityManager(new Library(), "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$");
+        main.SecurityManager securityManager = new main.SecurityManager(new Library(), "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$");
         assertEquals(1, securityManager.validate("Bob_White", "password"));
     }
 
     @Test
     @DisplayName("Fail scenario: password is only upper case letters")
     void RESP_04_test_07() {
-        SecurityManager securityManager = new SecurityManager(new Library(), "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$");
+        main.SecurityManager securityManager = new main.SecurityManager(new Library(), "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$");
         assertEquals(1, securityManager.validate("Bob_White", "PASSWORD"));
     }
 
     @Test
     @DisplayName("Fail scenario: password is not at least 8 characters long")
     void RESP_04_test_08() {
-        SecurityManager securityManager = new SecurityManager(new Library(), "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$");
+        main.SecurityManager securityManager = new main.SecurityManager(new Library(), "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$");
         assertEquals(1, securityManager.validate("Bob_White", "Pass123"));
     }
 
     @Test
     @DisplayName("Fail/Boundary scenario: Empty password")
     void RESP_04_test_09() {
-        SecurityManager securityManager = new SecurityManager(new Library(), "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$");
+        main.SecurityManager securityManager = new main.SecurityManager(new Library(), "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$");
         assertEquals(1, securityManager.validate("Bob_White", ""));
     }
 
     @Test
     @DisplayName("Fail scenario: Valid entry, does not match with DB")
     void RESP_04_test_10() {
-        SecurityManager securityManager = new SecurityManager(new Library(), "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$");
+        main.SecurityManager securityManager = new main.SecurityManager(new Library(), "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$");
         assertEquals(2, securityManager.validate("Bob_White_Cousin", "PassworD321"));
     }
 
@@ -112,7 +110,7 @@ public class ValidationTest {
         Borrower borrower = library.getBorrowerByName("Bob_White");
         assertTrue(
                 borrower.getSessionToken() != null && borrower.getSessionToken().equals(token),
-                "Borrower should have a session token after login, and it should match the returned token"
+                "main.Borrower should have a session token after login, and it should match the returned token"
         );
 
     }

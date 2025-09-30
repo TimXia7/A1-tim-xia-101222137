@@ -1,3 +1,4 @@
+import main.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -96,7 +97,7 @@ public class UITest {
         PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outContent));
 
-        ByteArrayInputStream inContent = new ByteArrayInputStream("Bob_White\nPassword123\n".getBytes());
+        ByteArrayInputStream inContent = new ByteArrayInputStream("Bob_White\nPassword123\n1\n".getBytes());
         System.setIn(inContent);
 
         // init the library and UI
@@ -120,7 +121,7 @@ public class UITest {
         PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outContent));
 
-        ByteArrayInputStream inContent = new ByteArrayInputStream("Bob_White\nPassword123\n".getBytes());
+        ByteArrayInputStream inContent = new ByteArrayInputStream("Bob_White\nPassword123\n1\n".getBytes());
         System.setIn(inContent);
 
         // init the library and UI
@@ -144,7 +145,7 @@ public class UITest {
         PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outContent));
 
-        ByteArrayInputStream inContent = new ByteArrayInputStream("Bob_White\nPassword123\n".getBytes());
+        ByteArrayInputStream inContent = new ByteArrayInputStream("Bob_White\nPassword123\n1\n".getBytes());
         System.setIn(inContent);
 
         // init the library and UI
