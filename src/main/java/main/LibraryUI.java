@@ -56,6 +56,13 @@ public class LibraryUI {
         }
     }
 
+    public void borrowOptions() {
+        Borrower currentBorrower = library.getActiveUser();
+        int borrowedBooks = currentBorrower.getBorrowCount();
+        System.out.println("Books currently borrowed: " + borrowedBooks);
+        library.printAllBorrowersState();
+    }
+
     public void displayMessage(String message) {
         System.out.println(message);
     }

@@ -22,8 +22,6 @@ public class SecurityManager {
         }
 
         // main.Borrower is valid, assign a session token
-        library.initializeBorrowers();
-
         Borrower borrower = library.getBorrowerByName(username);
         String token = UUID.randomUUID().toString();
         borrower.setSessionToken(token);
@@ -41,8 +39,6 @@ public class SecurityManager {
         }
 
         // 2. check existing entry
-        library.initializeBorrowers();
-
         Borrower borrower = library.getBorrowerByName(username);
         if (borrower == null || !borrower.getPassword().equals(password)) {
             return 2;

@@ -117,6 +117,7 @@ public class LibraryTest {
 
         // init the library and UI
         Library library = new Library();
+        library.initializeBorrowers();
         LibraryUI ui = new LibraryUI(library);
         ui.run();
 
@@ -140,6 +141,10 @@ public class LibraryTest {
 
         // init the library and UI
         Library library = new Library();
+        library.initializeBorrowers();
+        library.getBorrowerByName("Bob_White").addBook(new Book("book1", "book1"));
+        library.getBorrowerByName("Bob_White").addBook(new Book("book2", "book2"));
+        library.getBorrowerByName("Bob_White").addBook(new Book("book3", "book3"));
         LibraryUI ui = new LibraryUI(library);
         ui.run();
 
