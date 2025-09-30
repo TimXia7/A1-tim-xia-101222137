@@ -1,6 +1,11 @@
 
 import main.*;
 import org.junit.jupiter.api.*;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -101,9 +106,49 @@ public class LibraryTest {
     }
 
     @Test
-    @DisplayName("All borrower accounts should have a username and password")
+    @DisplayName("Borrower book count should say 0")
     void RESP_08_test_01(){
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outContent));
 
+        ByteArrayInputStream inContent = new ByteArrayInputStream("Bob_White\nPassword123\n1\n".getBytes());
+        System.setIn(inContent);
+
+        // init the library and UI
+        Library library = new Library();
+        LibraryUI ui = new LibraryUI(library);
+        ui.run();
+
+        System.setOut(originalOut);
+        System.setIn(System.in);
+
+        // Check that the password prompt was printed
+        String output = outContent.toString();
+        assertTrue(output.contains("Books currently borrowed: 0"));
+    }
+
+    @Test
+    @DisplayName("Borrower book count should say 3")
+    void RESP_08_test_02(){
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outContent));
+
+        ByteArrayInputStream inContent = new ByteArrayInputStream("Bob_White\nPassword123\n1\n".getBytes());
+        System.setIn(inContent);
+
+        // init the library and UI
+        Library library = new Library();
+        LibraryUI ui = new LibraryUI(library);
+        ui.run();
+
+        System.setOut(originalOut);
+        System.setIn(System.in);
+
+        // Check that the password prompt was printed
+        String output = outContent.toString();
+        assertTrue(output.contains("Books currently borrowed: 3"));
     }
 
 
