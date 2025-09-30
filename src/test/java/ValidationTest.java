@@ -5,8 +5,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ValidationTest {
 
@@ -150,7 +149,7 @@ public class ValidationTest {
     }
 
     @Test
-    @DisplayName("Fail scenario: Empty password")
+    @DisplayName("Fail/Boundary scenario: Empty password")
     void RESP_04_test_09() {
         Library library = new Library();
         assertEquals(1, library.validate("Bob_White", ""));
@@ -162,6 +161,43 @@ public class ValidationTest {
         Library library = new Library();
         assertEquals(2, library.validate("Bob_White_Cousin", "PassworD321"));
     }
+
+    @Test
+    @DisplayName("Successful login should return some token")
+    void RESP_05_test_01() {
+        Library library = new Library();
+        String token = library.login("Bob_White", "Password123");
+
+        assertTrue(token != null && !token.isEmpty(), "Token should be a non-empty string");
+    }
+
+    @Test
+    @DisplayName("Failed login should return null")
+    void RESP_05_test_02() {
+        Library library = new Library();
+        String token = library.login("Bob_White99", "Password123");
+
+        // Assert that login failed
+        assertNull(token, "Token should be null for failed login");
+    }
+
+
+    @Test
+    @DisplayName("Successful login assigns a session token to the borrower")
+    void RESP_05_test_03() {
+        Library library = new Library();
+        String token = library.login("Bob_White", "Password123");
+        library.initializeBorrowers();
+
+        // Retrieve the borrower and check their session token
+        Borrower borrower = library.getBorrowerByName("Bob_White");
+        assertTrue(
+                borrower.getSessionToken() != null && borrower.getSessionToken().equals(token),
+                "Borrower should have a session token after login, and it should match the returned token"
+        );
+
+    }
+
 
 
 

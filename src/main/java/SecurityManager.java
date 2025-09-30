@@ -11,6 +11,10 @@ public class SecurityManager {
         this.library = library;
     }
 
+    public String login(String username, String password) {
+        return "";
+    }
+
     // 0 = successful validate
     // 1 = regex error
     // 2 = does not match existing entry
