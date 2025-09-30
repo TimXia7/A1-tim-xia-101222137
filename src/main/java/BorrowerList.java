@@ -18,4 +18,6 @@ public class BorrowerList {
     public int getSize(){
         return borrowerList.size();
     }
+
+    public void clear(){ borrowerList.clear(); }
 }

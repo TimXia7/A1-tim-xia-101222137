@@ -3,10 +3,12 @@ import java.util.regex.Pattern;
 public class SecurityManager {
 
     private final String regex;
+    private Library library;
 
     // package-private constructor
-    SecurityManager(String regex) {
+    SecurityManager(Library library, String regex) {
         this.regex = regex;
+        this.library = library;
     }
 
     // 0 = successful validate
@@ -18,8 +20,7 @@ public class SecurityManager {
             return 1;
         }
 
-        // 2. Check borrower list
-        Library library = new Library();
+        // 2. check existing entry
         library.initializeBorrowers();
 
         Borrower borrower = library.getBorrowerByName(username);

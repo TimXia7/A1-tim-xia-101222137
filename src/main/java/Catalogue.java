@@ -18,4 +18,6 @@ public class Catalogue {
     public int getSize(){
         return catalogue.size();
     }
+
+    public void clear() { catalogue.clear(); }
 }

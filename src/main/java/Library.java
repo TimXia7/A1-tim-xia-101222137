@@ -12,10 +12,11 @@ public class Library {
     public Library() {
         catalogue = new Catalogue();
         borrowerList = new BorrowerList();
-        securityManager = new SecurityManager("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$");
+        securityManager = new SecurityManager(this, "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$");
     }
 
     public void initializeLibrary() {
+        catalogue.clear();
         try (InputStream input = getClass().getResourceAsStream("/books.txt");
              BufferedReader reader = new BufferedReader(new InputStreamReader(input))) {
 
@@ -34,6 +35,8 @@ public class Library {
     }
 
     public void initializeBorrowers() {
+        borrowerList.clear();
+
         try (InputStream input = getClass().getResourceAsStream("/borrowers.txt");
              BufferedReader reader = new BufferedReader(new InputStreamReader(input))) {
 
