@@ -7,6 +7,9 @@ public class LibraryUI {
         this.library = library;
     }
 
+    public void run(){}
+
+
     public String[] promptCredentials() {
         Scanner scanner = new Scanner(System.in);
 

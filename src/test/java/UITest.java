@@ -87,4 +87,78 @@ public class UITest {
                 "Username prompt should appear before password prompt, and both prompts should exist"
         );
     }
+
+    @Test
+    @DisplayName("After login, available operations should be presented: borrow a book")
+    void RESP_07_test_01() {
+        // capture printed output
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outContent));
+
+        ByteArrayInputStream inContent = new ByteArrayInputStream("Bob_White\nPassword123\n".getBytes());
+        System.setIn(inContent);
+
+        // init the library and UI
+        Library library = new Library();
+        LibraryUI ui = new LibraryUI(library);
+        ui.run();
+
+        System.setOut(originalOut);
+        System.setIn(System.in);
+
+        // Check that the password prompt was printed
+        String output = outContent.toString();
+        assertTrue(output.contains("Borrow a Book"));
+    }
+
+    @Test
+    @DisplayName("After login, available operations should be presented: return a book")
+    void RESP_07_test_02() {
+        // capture printed output
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outContent));
+
+        ByteArrayInputStream inContent = new ByteArrayInputStream("Bob_White\nPassword123\n".getBytes());
+        System.setIn(inContent);
+
+        // init the library and UI
+        Library library = new Library();
+        LibraryUI ui = new LibraryUI(library);
+        ui.run();
+
+        System.setOut(originalOut);
+        System.setIn(System.in);
+
+        // Check that the password prompt was printed
+        String output = outContent.toString();
+        assertTrue(output.contains("Return a book"));
+    }
+
+    @Test
+    @DisplayName("After login, available operations should be presented: logout")
+    void RESP_07_test_03() {
+        // capture printed output
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outContent));
+
+        ByteArrayInputStream inContent = new ByteArrayInputStream("Bob_White\nPassword123\n".getBytes());
+        System.setIn(inContent);
+
+        // init the library and UI
+        Library library = new Library();
+        LibraryUI ui = new LibraryUI(library);
+        ui.run();
+
+        System.setOut(originalOut);
+        System.setIn(System.in);
+
+        // Check that the password prompt was printed
+        String output = outContent.toString();
+        assertTrue(output.contains("Logout"));
+    }
+
+
 }
