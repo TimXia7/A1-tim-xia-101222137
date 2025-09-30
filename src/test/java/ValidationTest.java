@@ -186,8 +186,8 @@ public class ValidationTest {
     @DisplayName("Successful login assigns a session token to the borrower")
     void RESP_05_test_03() {
         Library library = new Library();
-        String token = library.login("Bob_White", "Password123");
         library.initializeBorrowers();
+        String token = library.login("Bob_White", "Password123");
 
         // Retrieve the borrower and check their session token
         Borrower borrower = library.getBorrowerByName("Bob_White");

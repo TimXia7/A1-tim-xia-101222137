@@ -1,3 +1,4 @@
+import java.util.UUID;
 import java.util.regex.Pattern;
 
 public class SecurityManager {
@@ -12,7 +13,21 @@ public class SecurityManager {
     }
 
     public String login(String username, String password) {
-        return "";
+        // First validate
+        int status = this.validate(username, password);
+
+        if (status != 0) {
+            return null;
+        }
+
+        // Borrower is valid, assign a session token
+        library.initializeBorrowers();
+
+        Borrower borrower = library.getBorrowerByName(username);
+        String token = UUID.randomUUID().toString();
+        borrower.setSessionToken(token);
+
+        return token; // return token to caller
     }
 
     // 0 = successful validate
