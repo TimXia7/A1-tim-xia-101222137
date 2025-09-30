@@ -1,15 +1,27 @@
 package main;
 
 public class Book {
+
+    public enum Status {
+        AVAILABLE,
+        CHECKED_OUT,
+        ON_HOLD
+    }
+
     private String title;
     private String author;
+    private Status availabilityStatus;
+    private String dueDate;
 
     public Book(String title, String author) {
         this.title = title;
         this.author = author;
+        this.availabilityStatus = Status.AVAILABLE;
     }
-
-    public String getTitle(){ return this.title; }
-    public String getAuthor(){ return this.author; }
-
+    public String getTitle() { return this.title; }
+    public String getAuthor() { return this.author; }
+    public Status getAvailabilityStatus() { return this.availabilityStatus; }
+    public void setAvailabilityStatus(Status availabilityStatus) { this.availabilityStatus = availabilityStatus; }
+    public String getDueDate() { return this.dueDate; }
+    public void setDueDate(String dueDate) { this.dueDate = dueDate; }
 }

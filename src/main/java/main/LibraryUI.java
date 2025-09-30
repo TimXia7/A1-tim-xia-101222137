@@ -60,7 +60,29 @@ public class LibraryUI {
         Borrower currentBorrower = library.getActiveUser();
         int borrowedBooks = currentBorrower.getBorrowCount();
         System.out.println("Books currently borrowed: " + borrowedBooks);
+        printBookStates();
     }
+
+    public void printBookStates() {
+        System.out.println("=== Library Book States ===");
+        int catalogueSize = library.getCatalogueSize();
+
+        for (int i = 0; i < catalogueSize; i++) {
+            Book book = library.getBookByIndex(i);
+            if (book == null) continue;
+
+            System.out.println((i + 1) + ". Title: " + book.getTitle() + " | Author: " + book.getAuthor());
+            System.out.println("   Status: " + book.getAvailabilityStatus());
+
+            if (book.getAvailabilityStatus() == Book.Status.CHECKED_OUT && book.getDueDate() != null) {
+                System.out.println("   Due Date: " + book.getDueDate());
+            }
+
+            System.out.println("-----------------------------");
+        }
+        System.out.println("=== End of Book States ===");
+    }
+
 
     public void displayMessage(String message) {
         System.out.println(message);

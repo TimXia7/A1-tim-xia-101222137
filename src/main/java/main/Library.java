@@ -113,30 +113,4 @@ public class Library {
         }
         return null;
     }
-
-    public void printAllBorrowersState() {
-        System.out.println("=== All Borrowers State ===");
-        for (int i = 0; i < borrowerList.getSize(); i++) {
-            Borrower borrower = borrowerList.getBorrower(i);
-            System.out.println("Username: " + borrower.getUsername());
-            System.out.println("Borrowed books count: " + borrower.getBorrowCount());
-
-            if (borrower.getBorrowCount() > 0) {
-                System.out.println("Books currently borrowed:");
-                for (int j = 0; j < borrower.getBorrowCount(); j++) {
-                    Book book = borrower.getBorrowedBook(j);
-                    System.out.println("- " + book.getTitle() + " by " + book.getAuthor());
-                }
-            } else {
-                System.out.println("Books currently borrowed: None");
-            }
-
-            String token = borrower.getSessionToken();
-            System.out.println("Session token: " + (token != null ? token : "None"));
-            System.out.println("-------------------------");
-        }
-        System.out.println("=== End of Borrowers State ===");
-    }
-
-
 }
