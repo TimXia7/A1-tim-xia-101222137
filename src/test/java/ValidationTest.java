@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -185,8 +186,55 @@ public class ValidationTest {
         System.setOut(originalOut);
         System.setIn(System.in);
 
-        // Check that the password prompt was printed
         String output = outContent.toString();
         assertTrue(output.contains("Press 2 to return to the Main Menu"));
     }
+
+    @Test
+    @DisplayName("No token should be found post logout")
+    void RESP_026_test_01() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outContent));
+
+        ByteArrayInputStream inContent = new ByteArrayInputStream("Bob_White\nPassword123\n0\n2\n00\n".getBytes());
+        System.setIn(inContent);
+
+        // init the library and UI
+        Library library = new Library();
+        LibraryUI ui = new LibraryUI(library);
+        ui.run();
+
+        System.setOut(originalOut);
+        System.setIn(System.in);
+
+        // single assertion: all borrowers have no session tokens
+        assertTrue(
+                IntStream.range(0, library.getBorrowersSize())
+                        .allMatch(i -> library.getBorrowerByIndex(i).getSessionToken() == null)
+        );
+    }
+
+    @Test
+    @DisplayName("After logging out, you should see the login page again")
+    void RESP_026_test_02() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outContent));
+
+        ByteArrayInputStream inContent = new ByteArrayInputStream("Bob_White\nPassword123\n0\n2\n00\n".getBytes());
+        System.setIn(inContent);
+
+        // init the library and UI
+        Library library = new Library();
+        LibraryUI ui = new LibraryUI(library);
+        ui.run();
+
+        System.setOut(originalOut);
+        System.setIn(System.in);
+
+        String output = outContent.toString();
+        assertTrue(output.contains("Enter username: "));
+    }
+
 }
