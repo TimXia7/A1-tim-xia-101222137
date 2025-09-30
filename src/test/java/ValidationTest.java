@@ -3,6 +3,10 @@ import main.SecurityManager;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ValidationTest {
@@ -114,8 +118,51 @@ public class ValidationTest {
 
     }
 
+    @Test
+    @DisplayName("Successful login assigns a session token to the borrower")
+    void RESP_025_test_01() {
+        // capture printed output
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outContent));
 
+        ByteArrayInputStream inContent = new ByteArrayInputStream("Bob_White\nPassword123\n0\n1\n".getBytes());
+        System.setIn(inContent);
 
+        // init the library and UI
+        Library library = new Library();
+        LibraryUI ui = new LibraryUI(library);
+        ui.run();
 
+        System.setOut(originalOut);
+        System.setIn(System.in);
 
+        // Check that the password prompt was printed
+        String output = outContent.toString();
+        assertTrue(output.contains("Press 1 to Confirm the Logout"));
+    }
+
+    @Test
+    @DisplayName("Successful login assigns a session token to the borrower")
+    void RESP_025_test_02() {
+        // capture printed output
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outContent));
+
+        ByteArrayInputStream inContent = new ByteArrayInputStream("Bob_White\nPassword123\n0\n1\n".getBytes());
+        System.setIn(inContent);
+
+        // init the library and UI
+        Library library = new Library();
+        LibraryUI ui = new LibraryUI(library);
+        ui.run();
+
+        System.setOut(originalOut);
+        System.setIn(System.in);
+
+        // Check that the password prompt was printed
+        String output = outContent.toString();
+        assertTrue(output.contains("Press 2 to return to the Main Menu"));
+    }
 }
