@@ -117,7 +117,6 @@ public class LibraryTest {
         System.setOut(originalOut);
         System.setIn(System.in);
 
-        // Check that the password prompt was printed
         String output = outContent.toString();
         assertTrue(output.contains("Books currently borrowed: 0"));
     }
@@ -143,9 +142,54 @@ public class LibraryTest {
         System.setOut(originalOut);
         System.setIn(System.in);
 
-        // Check that the password prompt was printed
         String output = outContent.toString();
         assertTrue(output.contains("Books currently borrowed: 3"));
+    }
+
+    @Test
+    @DisplayName("The Great Gatsby should be in the catalogue")
+    void RESP_09_test_01(){
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outContent));
+
+        ByteArrayInputStream inContent = new ByteArrayInputStream("Bob_White\nPassword123\n1\n".getBytes());
+        System.setIn(inContent);
+
+        // init the library and UI
+        Library library = new Library();
+        LibraryUI ui = new LibraryUI(library);
+        ui.run();
+
+        System.setOut(originalOut);
+        System.setIn(System.in);
+
+        String output = outContent.toString();
+        assertTrue(output.contains("The Great Gatsby | Author: F. Scott Fitzgerald"));
+    }
+
+    @Test
+    @DisplayName("The due date should display a book has one, Threads of Tomorrow on 2025-09-30")
+    void RESP_09_test_02(){
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outContent));
+
+        ByteArrayInputStream inContent = new ByteArrayInputStream("Bob_White\nPassword123\n1\n".getBytes());
+        System.setIn(inContent);
+
+        // init the library and UI
+        Library library = new Library();
+        library.getBookByTitle("Threads of Tomorrow").setAvailabilityStatus(Book.Status.CHECKED_OUT);
+        library.getBookByTitle("Threads of Tomorrow").setDueDate("2025-09-30");
+        LibraryUI ui = new LibraryUI(library);
+        ui.run();
+
+        System.setOut(originalOut);
+        System.setIn(System.in);
+
+        String output = outContent.toString();
+        assertTrue(output.contains("2025-09-30"));
     }
 
 
