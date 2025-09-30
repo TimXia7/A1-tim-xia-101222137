@@ -1,25 +1,23 @@
 package LibraryStates;
+
 import main.Library;
 import main.LibraryUI;
 
-public class MainMenuState implements LibraryState {
-    public void run(Library context, LibraryUI ui) {
-        int choice = ui.mainOptions();
+public class LogoutState implements LibraryState {
+    @Override
+    public void run(Library library, LibraryUI ui) {
+        int choice = ui.confirmLogout();
 
         switch (choice) {
             case 1:
-                ui.setState(new BorrowState());
-                break;
-            case 2:
                 ui.setState(new ShutdownState());
                 break;
-            case 0:
-                ui.setState(new LogoutState());
+            case 2:
+                ui.setState(new MainMenuState());
                 break;
             default:
                 ui.setState(this);
                 break;
         }
-
     }
 }

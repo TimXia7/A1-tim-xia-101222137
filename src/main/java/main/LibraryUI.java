@@ -44,7 +44,7 @@ public class LibraryUI {
         System.out.print("Please enter an operation (1,2,0) \n");
         System.out.print("1: Borrow a Book \n");
         System.out.print("2: Return a book \n");
-        System.out.print("3: Logout \n");
+        System.out.print("0: Logout \n");
         String choice = scanner.nextLine();
 
         clearScreen();
@@ -81,6 +81,22 @@ public class LibraryUI {
             System.out.println("-----------------------------");
         }
         System.out.println("=== End of Book States ===");
+    }
+
+    public int confirmLogout() {
+        System.out.println("Press 1 to Confirm the Logout");
+        System.out.println("Press 2 to return to the Main Menu");
+        System.out.print("Your Choice: ");
+
+        String input = scanner.nextLine();
+
+        clearScreen();
+        try {
+            return Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input. Please enter a number.");
+            return -1; // use -1 to indicate invalid input
+        }
     }
 
 

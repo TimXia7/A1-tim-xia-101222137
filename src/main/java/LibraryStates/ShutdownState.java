@@ -7,6 +7,7 @@ import main.LibraryUI;
 public class ShutdownState implements LibraryState {
     @Override
     public void run(Library library, LibraryUI ui) {
+        System.out.println("Library system shutting down...");
         ui.stop();
     }
 }
