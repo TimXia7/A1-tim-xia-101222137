@@ -282,6 +282,43 @@ public class LibraryTest {
         assertEquals(book, book2);
     }
 
+    @Test
+    @DisplayName("A borrower that has no books borrowed should be valid")
+    void RESP_12_test_01(){
+        Library library = new Library();
+        Borrower borrower = library.getBorrowerByName("Bob_White");
+        Borrower borrower2 = library.verifyBorrowerEligibility(borrower);
+
+        assertEquals(borrower, borrower2);
+    }
+
+    @Test
+    @DisplayName("A borrower that has two books borrowed should be valid")
+    void RESP_12_test_02(){
+        Library library = new Library();
+        Borrower borrower = library.getBorrowerByName("Bob_White");
+        borrower.addBook(new Book("", ""));
+        borrower.addBook(new Book("", ""));
+
+        Borrower borrower2 = library.verifyBorrowerEligibility(borrower);
+
+        assertEquals(borrower, borrower2);
+    }
+
+    @Test
+    @DisplayName("A borrower that has three books borrowed should not be valid")
+    void RESP_12_test_03(){
+        Library library = new Library();
+        Borrower borrower = library.getBorrowerByName("Bob_White");
+        borrower.addBook(new Book("", ""));
+        borrower.addBook(new Book("", ""));
+        borrower.addBook(new Book("", ""));
+
+        borrower = library.verifyBorrowerEligibility(borrower);
+
+        assertNull(borrower);
+    }
+
 
 
 }

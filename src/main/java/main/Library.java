@@ -102,6 +102,10 @@ public class Library {
         };
     }
 
+    public Borrower verifyBorrowerEligibility(Borrower borrower) {
+        return (new Borrower("", ""));
+    }
+
 
 
 
