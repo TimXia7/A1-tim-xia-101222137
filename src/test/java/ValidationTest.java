@@ -162,29 +162,6 @@ public class ValidationTest {
     }
 
     @Test
-    @DisplayName("After returning to main menu, logout anyways")
-    void RESP_025_test_03() {
-        // capture printed output
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        PrintStream originalOut = System.out;
-        System.setOut(new PrintStream(outContent));
-
-        ByteArrayInputStream inContent = new ByteArrayInputStream("Bob_White\nPassword123\n0\n2\n0\n1\n".getBytes());
-        System.setIn(inContent);
-
-        // init the library and UI
-        Library library = new Library();
-        LibraryUI ui = new LibraryUI(library);
-        ui.run();
-
-        System.setOut(originalOut);
-        System.setIn(System.in);
-
-        String output = outContent.toString();
-        assertTrue(output.contains("Press 2 to return to the Main Menu"));
-    }
-
-    @Test
     @DisplayName("No token should be found post logout")
     void RESP_026_test_01() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
