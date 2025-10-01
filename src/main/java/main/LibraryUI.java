@@ -2,6 +2,8 @@ package main;
 
 import LibraryStates.LibraryState;
 import LibraryStates.LoginState;
+import LibraryStates.LogoutState;
+import LibraryStates.MainMenuState;
 
 import java.util.Scanner;
 
@@ -20,9 +22,14 @@ public class LibraryUI {
     // Finite State Machine:
     public void run() {
         while (running) {
+            Borrower activeUser = library.getActiveUser();
+            if (activeUser == null || activeUser.getSessionToken() == null) {
+                setState(new LoginState());
+            }
             state.run(library, this);
         }
     }
+
 
     public void setState(LibraryState state) { this.state = state; }
     public void stop(){ this.running = false; }

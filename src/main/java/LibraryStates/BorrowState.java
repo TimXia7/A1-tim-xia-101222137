@@ -7,6 +7,10 @@ import main.LibraryUI;
 public class BorrowState implements LibraryState {
     @Override
     public void run(Library library, LibraryUI ui) {
+        if (library.getActiveUser().getSessionToken() == null){
+            ui.setState(new MainMenuState());
+        }
+
         ui.borrowOptions();
 
         ui.setState(new ShutdownState());

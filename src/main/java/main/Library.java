@@ -66,7 +66,7 @@ public class Library {
         return securityManager.login(username, password);
     }
 
-    public String logout(String username) { return ""; }
+    public String logout(String username) { return securityManager.logout(username); }
 
 
     // Getters and setters

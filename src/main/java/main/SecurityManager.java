@@ -29,6 +29,17 @@ public class SecurityManager {
         return token; // return token to caller
     }
 
+    public String logout(String username) {
+        Borrower borrower = library.getBorrowerByName(username);
+        if (borrower != null) {
+            String token = borrower.getSessionToken();
+            borrower.setSessionToken(null);
+            return token;
+        }
+        return null;
+    }
+
+
     // 0 = successful validate
     // 1 = regex error
     // 2 = does not match existing entry
