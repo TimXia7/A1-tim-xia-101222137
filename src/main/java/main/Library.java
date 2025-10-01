@@ -83,6 +83,9 @@ public class Library {
         }
     }
 
+    public Book verifyBookEligibility(Book book) {
+        return new Book("", "");
+    }
 
 
 

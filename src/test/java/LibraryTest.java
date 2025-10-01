@@ -246,6 +246,42 @@ public class LibraryTest {
         assertNull(book);
     }
 
+    @Test
+    @DisplayName("A book that is checked out should not be valid")
+    void RESP_11_test_01(){
+        Library library = new Library();
+        Book book = library.getBookByTitle("The Great Gatsby");
+        book.setAvailabilityStatus(Book.Status.CHECKED_OUT);
+
+        book = library.verifyBookEligibility(book);
+
+        assertNull(book);
+    }
+
+    @Test
+    @DisplayName("A book that is on hold should not be valid")
+    void RESP_11_test_02(){
+        Library library = new Library();
+        Book book = library.getBookByTitle("The Great Gatsby");
+        book.setAvailabilityStatus(Book.Status.ON_HOLD);
+
+        book = library.verifyBookEligibility(book);
+
+        assertNull(book);
+    }
+
+    @Test
+    @DisplayName("A book that is available should be valid")
+    void RESP_11_test_03(){
+        Library library = new Library();
+        Book book = library.getBookByTitle("The Great Gatsby");
+        book.setAvailabilityStatus(Book.Status.AVAILABLE);
+
+        Book book2 = library.verifyBookEligibility(book);
+
+        assertEquals(book, book2);
+    }
+
 
 
 }
