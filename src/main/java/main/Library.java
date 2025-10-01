@@ -84,8 +84,24 @@ public class Library {
     }
 
     public Book verifyBookEligibility(Book book) {
-        return new Book("", "");
+        if (book == null) {
+            System.out.println("Invalid book cannot be verified.");
+            return null;
+        }
+
+        return switch (book.getAvailabilityStatus()) {
+            case ON_HOLD -> {
+                System.out.println("This book is currently on hold.");
+                yield null;
+            }
+            case CHECKED_OUT -> {
+                System.out.println("This book is already checked out.");
+                yield null;
+            }
+            default -> book;
+        };
     }
+
 
 
 
