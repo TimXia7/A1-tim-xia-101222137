@@ -102,6 +102,7 @@ public class UITest {
         // init the library and UI
         Library library = new Library();
         LibraryUI ui = new LibraryUI(library);
+        library.login("Bob_White", "Password123");
         ui.mainOptions();
 
         System.setOut(originalOut);
@@ -125,6 +126,7 @@ public class UITest {
         // init the library and UI
         Library library = new Library();
         LibraryUI ui = new LibraryUI(library);
+        library.login("Bob_White", "Password123");
         ui.mainOptions();
 
         System.setOut(originalOut);
@@ -148,6 +150,7 @@ public class UITest {
         // init the library and UI
         Library library = new Library();
         LibraryUI ui = new LibraryUI(library);
+        library.login("Bob_White", "Password123");
         ui.mainOptions();
 
         System.setOut(originalOut);
