@@ -103,7 +103,13 @@ public class Library {
     }
 
     public Borrower verifyBorrowerEligibility(Borrower borrower) {
-        return (new Borrower("", ""));
+        int borrowCount = borrower.getBorrowCount();
+        if (borrowCount >= 3) {
+            System.out.println("User has hit the book borrowing limit (3).");
+            return null;
+        } else {
+            return borrower;
+        }
     }
 
 
