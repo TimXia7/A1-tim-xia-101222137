@@ -92,15 +92,27 @@ public class LibraryUI {
     }
 
     public Book handleBorrowOperation() {
-        return new Book("", "");
+        System.out.print("Please enter a valid index of a desired book: ");
+        String index = scanner.nextLine();
+
+        clearScreen();
+        Book book = queryBorrow(Integer.parseInt(index));
+        setBorrowTarget(book);
+
+        return book;
     }
 
     public int confirmBorrowOperation(Book book) {
-        return 0;
+        System.out.println("You are planning to borrow: "
+                + book.getTitle() + " by " + book.getAuthor());
+        System.out.print("Press 1 to Confirm the Borrow \n");
+        System.out.println("Press 2 to return to the Main Menu");
+        return Integer.parseInt(scanner.nextLine());
     }
 
     public Book queryBorrow(int index) {
-        return new Book("", "");
+        int zeroBasedIndex = index - 1;
+        return library.getBookByIndex(zeroBasedIndex);
     }
 
     public void printBookStates() {

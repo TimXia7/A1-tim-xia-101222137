@@ -1,5 +1,6 @@
 package LibraryStates;
 
+import main.Book;
 import main.Library;
 import main.LibraryUI;
 
@@ -13,6 +14,11 @@ public class BorrowState implements LibraryState {
 
         ui.borrowOptions();
 
-        ui.setState(new ShutdownState());
+        Book book = ui.handleBorrowOperation();
+        if (book == null) {
+            ui.setState(this);
+        } else {
+            ui.setState(new ConfirmBorrowState());
+        }
     }
 }

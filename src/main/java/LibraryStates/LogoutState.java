@@ -10,7 +10,7 @@ public class LogoutState implements LibraryState {
 
         switch (choice) {
             case 1:
-                ui.setState(new ShutdownState());
+                ui.setState(new LoginState());
                 break;
             case 2:
                 ui.setState(new MainMenuState());
