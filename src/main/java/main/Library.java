@@ -59,13 +59,16 @@ public class Library {
         }
     }
 
+    public void holdForUser(String username, Book book) { }
+
+
+
 
     // Validation wrapper:
     // returns borrower token
     public String login(String username, String password) {
         return securityManager.login(username, password);
     }
-
     public String logout(String username) { return securityManager.logout(username); }
 
 

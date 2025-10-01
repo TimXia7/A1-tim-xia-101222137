@@ -100,6 +100,60 @@ public class LibraryTest {
     }
 
     @Test
+    @DisplayName("Upon login, the borrower has no holdings")
+    void RESP_06_test_01(){
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+
+        Library library = new Library();
+        LibraryUI ui = new LibraryUI(library);
+
+        library.login("Bob_White", "Password123");
+        ui.displayMainOptions();
+
+        String output = outContent.toString();
+        assertTrue(output.contains("You have 0 available holding(s)"));
+    }
+
+    @Test
+    @DisplayName("Upon login, the borrower has a hold on one book")
+    void RESP_06_test_02(){
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+
+        Library library = new Library();
+        LibraryUI ui = new LibraryUI(library);
+
+        library.login("Bob_White", "Password123");
+        library.holdForUser("Bob_White", new Book("book1", "book1"));
+        ui.displayMainOptions();
+
+        String output = outContent.toString();
+        assertTrue(output.contains("You have 1 available holding(s)"));
+    }
+
+    @Test
+    @DisplayName("Upon login, the borrower has a hold on two different books, despite attempting to put a hold on the same book twice")
+    void RESP_06_test_03(){
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+
+        Library library = new Library();
+        LibraryUI ui = new LibraryUI(library);
+
+        library.login("Bob_White", "Password123");
+        Book book2 = new Book("book2", "book2");
+        library.holdForUser("Bob_White", new Book("book1", "book1"));
+        library.holdForUser("Bob_White", book2);
+        library.holdForUser("Bob_White", book2);
+        ui.displayMainOptions();
+
+        String output = outContent.toString();
+        assertTrue(output.contains("You have 2 available holding(s)"));
+    }
+
+
+    @Test
     @DisplayName("Borrower book count should be 0")
     void RESP_08_test_01(){
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -108,7 +162,6 @@ public class LibraryTest {
         Library library = new Library();
         LibraryUI ui = new LibraryUI(library);
 
-        Borrower borrower = library.getBorrowerByName("Bob_White");
         library.login("Bob_White", "Password123");
         ui.borrowOptions();
 
@@ -145,7 +198,6 @@ public class LibraryTest {
         Library library = new Library();
         LibraryUI ui = new LibraryUI(library);
 
-        Borrower borrower = library.getBorrowerByName("Bob_White");
         library.login("Bob_White", "Password123");
         ui.borrowOptions();
 

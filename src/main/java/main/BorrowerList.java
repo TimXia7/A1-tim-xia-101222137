@@ -17,6 +17,12 @@ public class BorrowerList {
         return borrowerList.get(index);
     }
 
+    Borrower removeBorrower(int index){
+        Borrower borrower = borrowerList.get(index);
+        borrowerList.remove(index);
+        return borrower;
+    }
+
     public int getSize(){
         return borrowerList.size();
     }

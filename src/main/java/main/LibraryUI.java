@@ -48,10 +48,7 @@ public class LibraryUI {
     }
 
     public int mainOptions() {
-        System.out.print("Please enter an operation (1,2,0) \n");
-        System.out.print("1: Borrow a Book \n");
-        System.out.print("2: Return a book \n");
-        System.out.print("0: Logout \n");
+        displayMainOptions();
         String choice = scanner.nextLine();
 
         clearScreen();
@@ -61,6 +58,13 @@ public class LibraryUI {
             System.out.println("Invalid input. Please enter a number.");
             return -1;
         }
+    }
+
+    public void displayMainOptions(){
+        System.out.print("Please enter an operation (1,2,0) \n");
+        System.out.print("1: Borrow a Book \n");
+        System.out.print("2: Return a book \n");
+        System.out.print("0: Logout \n");
     }
 
     public void borrowOptions() {

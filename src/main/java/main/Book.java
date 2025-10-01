@@ -12,6 +12,7 @@ public class Book {
     private String author;
     private Status availabilityStatus;
     private String dueDate;
+    private BorrowerList holdingList;
 
     public Book(String title, String author) {
         this.title = title;
@@ -24,4 +25,6 @@ public class Book {
     public void setAvailabilityStatus(Status availabilityStatus) { this.availabilityStatus = availabilityStatus; }
     public String getDueDate() { return this.dueDate; }
     public void setDueDate(String dueDate) { this.dueDate = dueDate; }
+    public void addHolder(Borrower borrower) { holdingList.addBorrower(borrower); }
+    public Borrower remove(int index) { return holdingList.removeBorrower(index); }
 }
