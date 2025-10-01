@@ -161,5 +161,66 @@ public class UITest {
         assertTrue(output.contains("Logout"));
     }
 
+    @Test
+    @DisplayName("Selecting a book to borrow should show a confirmation screen first, confirm")
+    void RESP_10_test_03(){
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outContent));
 
+        ByteArrayInputStream inContent = new ByteArrayInputStream("1\n".getBytes());
+        System.setIn(inContent);
+
+        Library library = new Library();
+        LibraryUI ui = new LibraryUI(library);
+        ui.confirmBorrowOperation(new Book("book title", ""));
+
+        System.setOut(originalOut);
+        System.setIn(System.in);
+
+        String output = outContent.toString();
+        assertTrue(output.contains("Press 1 to Confirm the Borrow"));
+    }
+
+    @Test
+    @DisplayName("Selecting a book to borrow should show a confirmation screen first, go back")
+    void RESP_10_test_04(){
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outContent));
+
+        ByteArrayInputStream inContent = new ByteArrayInputStream("1\n".getBytes());
+        System.setIn(inContent);
+
+        Library library = new Library();
+        LibraryUI ui = new LibraryUI(library);
+        ui.confirmBorrowOperation(new Book("book title", ""));
+
+        System.setOut(originalOut);
+        System.setIn(System.in);
+
+        String output = outContent.toString();
+        assertTrue(output.contains("Press 2 to return to the Main Menu"));
+    }
+
+    @Test
+    @DisplayName("Book details should be printed upon borrow request")
+    void RESP_10_test_05(){
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outContent));
+
+        ByteArrayInputStream inContent = new ByteArrayInputStream("1\n".getBytes());
+        System.setIn(inContent);
+
+        Library library = new Library();
+        LibraryUI ui = new LibraryUI(library);
+        ui.confirmBorrowOperation(new Book("book title", ""));
+
+        System.setOut(originalOut);
+        System.setIn(System.in);
+
+        String output = outContent.toString();
+        assertTrue(output.contains("book title"));
+    }
 }

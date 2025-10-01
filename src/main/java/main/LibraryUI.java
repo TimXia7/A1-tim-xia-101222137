@@ -12,6 +12,7 @@ public class LibraryUI {
     private LibraryState state;
     private final Scanner scanner = new Scanner(System.in);
     private Boolean running;
+    private Book borrowTarget;
 
     public LibraryUI(Library library) {
         this.library = library;
@@ -32,6 +33,8 @@ public class LibraryUI {
 
 
     public void setState(LibraryState state) { this.state = state; }
+    public Book getBorrowTarget() { return this.borrowTarget; }
+    public void setBorrowTarget(Book book) { this.borrowTarget = book; }
     public void stop(){ this.running = false; }
 
 
@@ -88,6 +91,18 @@ public class LibraryUI {
         printBookStates();
     }
 
+    public Book handleBorrowOperation() {
+        return new Book("", "");
+    }
+
+    public int confirmBorrowOperation(Book book) {
+        return 0;
+    }
+
+    public Book queryBorrow(int index) {
+        return new Book("", "");
+    }
+
     public void printBookStates() {
         System.out.println("=== Library Book States ===");
         int catalogueSize = library.getCatalogueSize();
@@ -105,7 +120,7 @@ public class LibraryUI {
 
             System.out.println("-----------------------------");
         }
-        System.out.println("=== End of Book States ===");
+        System.out.println("==========================");
     }
 
     public int confirmLogout() {

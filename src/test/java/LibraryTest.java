@@ -6,8 +6,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class LibraryTest {
 
@@ -224,6 +223,29 @@ public class LibraryTest {
         String output = outContent.toString();
         assertTrue(output.contains("2025-09-30"));
     }
+
+    @Test
+    @DisplayName("Querying a borrow for the 1st book, The Great Gatsby should return that book")
+    void RESP_10_test_01(){
+        Library library = new Library();
+        LibraryUI ui = new LibraryUI(library);
+        library.login("Bob_White", "Password123");
+        Book book = ui.queryBorrow(1);
+
+        assertEquals("The Great Gatsby", book.getTitle());
+    }
+
+    @Test
+    @DisplayName("Querying a borrow for the 21st book, which doesn't exist (should be null)")
+    void RESP_10_test_02(){
+        Library library = new Library();
+        LibraryUI ui = new LibraryUI(library);
+        library.login("Bob_White", "Password123");
+        Book book = ui.queryBorrow(21);
+
+        assertNull(book);
+    }
+
 
 
 }
