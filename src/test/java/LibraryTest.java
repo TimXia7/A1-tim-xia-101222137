@@ -149,6 +149,8 @@ public class LibraryTest {
         ui.displayMainOptions();
 
         String output = outContent.toString();
+        System.setOut(System.out);
+        System.out.println(output);
         assertTrue(output.contains("You have 2 available holding(s)"));
     }
 

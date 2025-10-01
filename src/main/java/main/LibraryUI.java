@@ -61,6 +61,20 @@ public class LibraryUI {
     }
 
     public void displayMainOptions(){
+        Borrower borrower = library.getActiveUser();
+        System.out.println("Hello, " + borrower.getUsername() + ". You have " + borrower.getHoldingCount() + " available holding(s):");
+
+        // Print all holdings
+        for (int i = 0; i < borrower.getHoldingCount(); i++) {
+            Book book = borrower.getHolding(i);
+            System.out.print((i + 1) + ": ");
+            System.out.print(book.getTitle() + " by " + book.getAuthor());
+            if (book.getAvailabilityStatus() == Book.Status.CHECKED_OUT && book.getDueDate() != null) {
+                System.out.print(" (Due: " + book.getDueDate() + ")");
+            }
+            System.out.println(" [" + book.getAvailabilityStatus() + "]");
+        }
+
         System.out.print("Please enter an operation (1,2,0) \n");
         System.out.print("1: Borrow a Book \n");
         System.out.print("2: Return a book \n");

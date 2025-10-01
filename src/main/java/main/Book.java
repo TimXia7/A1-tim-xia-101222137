@@ -18,6 +18,7 @@ public class Book {
         this.title = title;
         this.author = author;
         this.availabilityStatus = Status.AVAILABLE;
+        this.holdingList = new BorrowerList();
     }
     public String getTitle() { return this.title; }
     public String getAuthor() { return this.author; }

@@ -26,5 +26,6 @@ public class Borrower {
     public Book getBorrowedBook(int index){ return this.books.getBook(index); }
 
     public void addHolding(Book book) { this.holdings.addBook(book); }
+    public int getHoldingCount(){ return this.holdings.getSize(); }
     public Book getHolding(int index) { return holdings.getBook(index); }
 }

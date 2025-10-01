@@ -59,7 +59,29 @@ public class Library {
         }
     }
 
-    public void holdForUser(String username, Book book) { }
+    public void holdForUser(String username, Book book) {
+        Borrower borrower = getBorrowerByName(username);
+
+        boolean alreadyHolding = false;
+        for (int i = 0; i < borrower.getHoldingCount(); i++) {
+            if (borrower.getHolding(i).equals(book)) {
+                alreadyHolding = true;
+                System.out.println("Error in Holding Operation: User already has a holding on this book.");
+                break;
+            }
+        }
+
+        if (!alreadyHolding) {
+            book.addHolder(borrower);
+            borrower.addHolding(book);
+
+            // If the book is AVAILABLE, then mark it as ON_HOLD
+            // Another check occurs when a book is returned
+            if (book.getAvailabilityStatus() == Book.Status.AVAILABLE) {
+                book.setAvailabilityStatus(Book.Status.ON_HOLD);
+            }
+        }
+    }
 
 
 
