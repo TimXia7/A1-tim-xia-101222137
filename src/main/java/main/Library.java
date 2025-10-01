@@ -66,6 +66,8 @@ public class Library {
         return securityManager.login(username, password);
     }
 
+    public String logout(String username) { return ""; }
+
 
     // Getters and setters
     public int getCatalogueSize(){ return catalogue.getSize(); }

@@ -191,13 +191,12 @@ public class ValidationTest {
         PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outContent));
 
-        ByteArrayInputStream inContent = new ByteArrayInputStream("Bob_White\nPassword123\n0\n2\n00\n".getBytes());
+        ByteArrayInputStream inContent = new ByteArrayInputStream("1\n".getBytes());
         System.setIn(inContent);
 
-        // init the library and UI
         Library library = new Library();
-        LibraryUI ui = new LibraryUI(library);
-        ui.run();
+        library.login("Bob_White", "Password123");
+        library.logout("Bob_White");
 
         System.setOut(originalOut);
         System.setIn(System.in);
@@ -210,25 +209,30 @@ public class ValidationTest {
     }
 
     @Test
-    @DisplayName("After logging out, you should see the login page again")
+    @DisplayName("Single logout should not affect other borrowers")
     void RESP_026_test_02() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outContent));
 
-        ByteArrayInputStream inContent = new ByteArrayInputStream("Bob_White\nPassword123\n0\n2\n00\n".getBytes());
+        ByteArrayInputStream inContent = new ByteArrayInputStream("1\n".getBytes());
         System.setIn(inContent);
 
-        // init the library and UI
         Library library = new Library();
-        LibraryUI ui = new LibraryUI(library);
-        ui.run();
+        library.login("Bob_White", "Password123");
+        library.login("ILoveCOMP4004", "abC123defg");
+        library.logout("Bob_White");
 
         System.setOut(originalOut);
         System.setIn(System.in);
 
-        String output = outContent.toString();
-        assertTrue(output.contains("Enter username: "));
-    }
+        Borrower bob = library.getBorrowerByName("Bob_White");
+        Borrower comp4004Fan = library.getBorrowerByName("ILoveCOMP4004");
 
+        boolean correctState =
+                bob.getSessionToken() == null &&
+                        comp4004Fan.getSessionToken() != null;
+
+        assertTrue(correctState, "Bob_White should be logged out, while ILoveCOMP4004 remains logged in");
+    }
 }
