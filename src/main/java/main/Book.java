@@ -1,5 +1,8 @@
 package main;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Book {
 
     public enum Status {
@@ -19,6 +22,7 @@ public class Book {
         this.author = author;
         this.availabilityStatus = Status.AVAILABLE;
         this.holdingList = new BorrowerList();
+        this.dueDate = "2025-10-01";
     }
     public String getTitle() { return this.title; }
     public String getAuthor() { return this.author; }
@@ -28,4 +32,13 @@ public class Book {
     public void setDueDate(String dueDate) { this.dueDate = dueDate; }
     public void addHolder(Borrower borrower) { holdingList.addBorrower(borrower); }
     public Borrower remove(int index) { return holdingList.removeBorrower(index); }
+    public void increaseDueDate(int days) {
+        if (this.dueDate == null || this.dueDate.isEmpty()) return;
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate date = LocalDate.parse(this.dueDate, formatter);
+        date = date.plusDays(days);
+        this.dueDate = date.format(formatter);
+    }
+
 }

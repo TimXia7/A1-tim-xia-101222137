@@ -4,17 +4,21 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Library {
     private Catalogue catalogue;
     private BorrowerList borrowerList;
     private final SecurityManager securityManager;
+    private String date;
 
     public Library() {
         catalogue = new Catalogue();
         borrowerList = new BorrowerList();
         securityManager = new SecurityManager(this, "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$");
+        date = "2025-10-01";
 
         initializeLibrary();
         initializeBorrowers();
@@ -112,10 +116,10 @@ public class Library {
         }
     }
 
-    public void calculateDueDate(Book book){}
-    public void setDate(String date){}
-
-
+    public void calculateDueDate(Book book){
+        book.setDueDate(this.date);
+        book.increaseDueDate(14);
+    }
 
 
     // Validation wrapper:
@@ -161,6 +165,24 @@ public class Library {
         }
         return borrowerList.getBorrower(index);
     }
+    public void setDate(String date){ this.date = date; }
+    public void increaseDate(int days) {
+        if (this.date == null || this.date.isEmpty()) return;
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate date = LocalDate.parse(this.date, formatter);
+        date = date.plusDays(days);
+        this.date = date.format(formatter);
+    }
+    public void decreaseDate(int days) {
+        if (this.date == null || this.date.isEmpty()) return;
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate date = LocalDate.parse(this.date, formatter);
+        date = date.minusDays(days);
+        this.date = date.format(formatter);
+    }
+
 
     // The logic of this will be much more complicated with multiple users at once
     public Borrower getActiveUser() {
