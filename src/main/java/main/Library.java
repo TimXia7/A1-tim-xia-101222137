@@ -112,6 +112,9 @@ public class Library {
         }
     }
 
+    public void calculateDueDate(Book book){}
+    public void setDate(String date){}
+
 
 
 

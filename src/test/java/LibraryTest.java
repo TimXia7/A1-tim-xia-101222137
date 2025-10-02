@@ -319,6 +319,43 @@ public class LibraryTest {
         assertNull(borrower);
     }
 
+    @Test
+    @DisplayName("See if a basic 14 day due date is calculated correctly.")
+    void RESP_13_test_01(){
+        Library library = new Library();
+        Book book = library.getBookByTitle("The Great Gatsby");
 
+        // library: initialDate = 2025-10-01
+        library.calculateDueDate(book);
 
+        String dueDate = book.getDueDate();
+        assertEquals("2025-10-15", dueDate);
+    }
+
+    @Test
+    @DisplayName("See if a 14 day due date is calculated correctly over a year")
+    void RESP_13_test_02(){
+        Library library = new Library();
+        Book book = library.getBookByTitle("The Great Gatsby");
+
+        library.setDate("2025-12-29");
+        library.calculateDueDate(book);
+
+        String dueDate = book.getDueDate();
+        assertEquals("2026-01-12", dueDate);
+    }
+
+    @Test
+    @DisplayName("See if a 14 day due date is calculated correctly for a leap year")
+    void RESP_13_test_03(){
+        Library library = new Library();
+        Book book = library.getBookByTitle("The Great Gatsby");
+
+        // (leap day)
+        library.setDate("2024-02-29");
+        library.calculateDueDate(book);
+
+        String dueDate = book.getDueDate();
+        assertEquals("2024-03-14", dueDate);
+    }
 }
