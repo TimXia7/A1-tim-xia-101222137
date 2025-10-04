@@ -30,28 +30,51 @@ public class LibraryTest {
     }
 
     @Test
-    @DisplayName("Ensure that all books in the catalogue have valid data.")
-    void RESP_01_test_03(){
+    @DisplayName("Ensure that all books in the catalogue are not null after init")
+    void RESP_01_test_03() {
         Library library = new Library();
 
-        Boolean validBooks = true;
-
-        for (int i = 0; i < 20 ; ++i){
+        boolean validBooks = true;
+        for (int i = 0; i < 20; ++i) {
             Book book = library.getBookByIndex(i);
-            if (!validateBook(book)) {
+            if (book == null) {
                 validBooks = false;
                 break;
             }
         }
-        assertTrue(validBooks, "All books should have valid data.");
+        assertTrue(validBooks);
     }
-    // Helper for RESP_01_test_03
-    private boolean validateBook(Book book) {
-        return book != null &&
-                book.getTitle() != null &&
-                book.getAuthor() != null &&
-                !book.getTitle().isEmpty() &&
-                !book.getAuthor().isEmpty();
+
+    @Test
+    @DisplayName("Ensure that all books in the catalogue have non-empty titles")
+    void RESP_01_test_04() {
+        Library library = new Library();
+
+        boolean validTitles = true;
+        for (int i = 0; i < 20; ++i) {
+            Book book = library.getBookByIndex(i);
+            if (book.getTitle() == null || book.getTitle().isEmpty()) {
+                validTitles = false;
+                break;
+            }
+        }
+        assertTrue(validTitles);
+    }
+
+    @Test
+    @DisplayName("Ensure that all books in the catalogue have non-empty authors")
+    void RESP_01_test_05() {
+        Library library = new Library();
+
+        boolean validAuthors = true;
+        for (int i = 0; i < 20; ++i) {
+            Book book = library.getBookByIndex(i);
+            if (book.getAuthor() == null || book.getAuthor().isEmpty()) {
+                validAuthors = false;
+                break;
+            }
+        }
+        assertTrue(validAuthors);
     }
 
     @Test
@@ -74,28 +97,51 @@ public class LibraryTest {
     }
 
     @Test
-    @DisplayName("All borrower accounts should have a username and password")
-    void RESP_02_test_03(){
+    @DisplayName("All borrower accounts should not be null")
+    void RESP_02_test_03() {
         Library library = new Library();
 
-        Boolean validBorrowers = true;
-
-        for (int i = 0; i < 3; ++i){
+        boolean validBorrowers = true;
+        for (int i = 0; i < 3; ++i) {
             Borrower borrower = library.getBorrowerByIndex(i);
-            if (!validateBorrower(borrower)) {
+            if (borrower == null) {
                 validBorrowers = false;
                 break;
             }
         }
-        assertTrue(validBorrowers, "All books should have valid data.");
+        assertTrue(validBorrowers);
     }
-    // Helper for RESP_01_test_03
-    private boolean validateBorrower(Borrower borrower) {
-        return borrower != null &&
-                borrower.getUsername() != null &&
-                borrower.getPassword() != null &&
-                !borrower.getUsername().isEmpty() &&
-                !borrower.getPassword().isEmpty();
+
+    @Test
+    @DisplayName("All borrower accounts should have a non-empty username")
+    void RESP_02_test_04() {
+        Library library = new Library();
+
+        boolean validUsernames = true;
+        for (int i = 0; i < 3; ++i) {
+            Borrower borrower = library.getBorrowerByIndex(i);
+            if (borrower.getUsername() == null || borrower.getUsername().isEmpty()) {
+                validUsernames = false;
+                break;
+            }
+        }
+        assertTrue(validUsernames);
+    }
+
+    @Test
+    @DisplayName("All borrower accounts should have a non-empty password")
+    void RESP_02_test_05() {
+        Library library = new Library();
+
+        boolean validPasswords = true;
+        for (int i = 0; i < 3; ++i) {
+            Borrower borrower = library.getBorrowerByIndex(i);
+            if (borrower.getPassword() == null || borrower.getPassword().isEmpty()) {
+                validPasswords = false;
+                break;
+            }
+        }
+        assertTrue(validPasswords);
     }
 
     @Test
