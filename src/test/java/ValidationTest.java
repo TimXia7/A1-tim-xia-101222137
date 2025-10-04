@@ -178,7 +178,6 @@ public class ValidationTest {
         System.setOut(originalOut);
         System.setIn(System.in);
 
-        // single assertion: all borrowers have no session tokens
         assertTrue(
                 IntStream.range(0, library.getBorrowersSize())
                         .allMatch(i -> library.getBorrowerByIndex(i).getSessionToken() == null)

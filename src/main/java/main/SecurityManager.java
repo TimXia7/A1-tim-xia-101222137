@@ -44,12 +44,17 @@ public class SecurityManager {
     // 1 = regex error
     // 2 = does not match existing entry
     public int validate(String username, String password) {
-        // 1. Check regex
+        // 1. Check username validity (not null or empty)
+        if (username == null || username.trim().isEmpty()) {
+            return -1;
+        }
+
+        // 2. Check regex
         if (password == null || !Pattern.matches(regex, password)) {
             return 1;
         }
 
-        // 2. check existing entry
+        // 3. check existing entry
         Borrower borrower = library.getBorrowerByName(username);
         if (borrower == null || !borrower.getPassword().equals(password)) {
             return 2;
