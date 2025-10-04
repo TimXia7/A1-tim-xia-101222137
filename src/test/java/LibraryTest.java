@@ -2,7 +2,7 @@
 import main.*;
 import org.junit.jupiter.api.*;
 
-import java.io.ByteArrayInputStream;
+import org.junit.jupiter.api.BeforeAll;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
@@ -10,11 +10,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class LibraryTest {
 
+    private Library library;
+
+    @BeforeEach
+    void setUpLibrary() {
+        library = new Library();
+    }
+
     @Test
     @DisplayName("main.Library catalogue size should be 20 upon initialization.")
     void RESP_01_test_01(){
-        Library library = new Library();
-
         int size = library.getCatalogueSize();
         assertEquals(20, size);
     }
@@ -22,8 +27,6 @@ public class LibraryTest {
     @Test
     @DisplayName("main.Library should have a specific book after initialization - The Great Gatsby.")
     void RESP_01_test_02(){
-        Library library = new Library();
-
         Book targetBook = library.getBookByTitle("The Great Gatsby");
         String targetBookTitle = targetBook.getTitle();
         assertEquals("The Great Gatsby", targetBookTitle);
@@ -32,8 +35,6 @@ public class LibraryTest {
     @Test
     @DisplayName("Ensure that all books in the catalogue are not null after init")
     void RESP_01_test_03() {
-        Library library = new Library();
-
         boolean validBooks = true;
         for (int i = 0; i < 20; ++i) {
             Book book = library.getBookByIndex(i);
@@ -48,8 +49,6 @@ public class LibraryTest {
     @Test
     @DisplayName("Ensure that all books in the catalogue have non-empty titles")
     void RESP_01_test_04() {
-        Library library = new Library();
-
         boolean validTitles = true;
         for (int i = 0; i < 20; ++i) {
             Book book = library.getBookByIndex(i);
@@ -64,8 +63,6 @@ public class LibraryTest {
     @Test
     @DisplayName("Ensure that all books in the catalogue have non-empty authors")
     void RESP_01_test_05() {
-        Library library = new Library();
-
         boolean validAuthors = true;
         for (int i = 0; i < 20; ++i) {
             Book book = library.getBookByIndex(i);
@@ -80,8 +77,6 @@ public class LibraryTest {
     @Test
     @DisplayName("The library should have 3 borrower accounts.")
     void RESP_02_test_01(){
-        Library library = new Library();
-
         int size = library.getBorrowersSize();
         assertEquals(3, size);
     }
@@ -89,8 +84,6 @@ public class LibraryTest {
     @Test
     @DisplayName("main.Library should have a specific borrower after initialization - Bob_White")
     void RESP_02_test_02(){
-        Library library = new Library();
-
         Borrower targetBorrower = library.getBorrowerByName("Bob_White");
         String targetBorrowerName = targetBorrower.getUsername();
         assertEquals("Bob_White", targetBorrowerName);
@@ -99,8 +92,6 @@ public class LibraryTest {
     @Test
     @DisplayName("All borrower accounts should not be null")
     void RESP_02_test_03() {
-        Library library = new Library();
-
         boolean validBorrowers = true;
         for (int i = 0; i < 3; ++i) {
             Borrower borrower = library.getBorrowerByIndex(i);
@@ -115,8 +106,6 @@ public class LibraryTest {
     @Test
     @DisplayName("All borrower accounts should have a non-empty username")
     void RESP_02_test_04() {
-        Library library = new Library();
-
         boolean validUsernames = true;
         for (int i = 0; i < 3; ++i) {
             Borrower borrower = library.getBorrowerByIndex(i);
@@ -131,8 +120,6 @@ public class LibraryTest {
     @Test
     @DisplayName("All borrower accounts should have a non-empty password")
     void RESP_02_test_05() {
-        Library library = new Library();
-
         boolean validPasswords = true;
         for (int i = 0; i < 3; ++i) {
             Borrower borrower = library.getBorrowerByIndex(i);
@@ -150,7 +137,6 @@ public class LibraryTest {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
 
-        Library library = new Library();
         LibraryUI ui = new LibraryUI(library);
 
         library.login("Bob_White", "Password123");
@@ -166,7 +152,6 @@ public class LibraryTest {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
 
-        Library library = new Library();
         LibraryUI ui = new LibraryUI(library);
 
         library.login("Bob_White", "Password123");
@@ -183,7 +168,6 @@ public class LibraryTest {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
 
-        Library library = new Library();
         LibraryUI ui = new LibraryUI(library);
 
         library.login("Bob_White", "Password123");
@@ -206,7 +190,6 @@ public class LibraryTest {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
 
-        Library library = new Library();
         LibraryUI ui = new LibraryUI(library);
 
         library.login("Bob_White", "Password123");
@@ -222,7 +205,6 @@ public class LibraryTest {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
 
-        Library library = new Library();
         LibraryUI ui = new LibraryUI(library);
 
         Borrower borrower = library.getBorrowerByName("Bob_White");
@@ -242,7 +224,6 @@ public class LibraryTest {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
 
-        Library library = new Library();
         LibraryUI ui = new LibraryUI(library);
 
         library.login("Bob_White", "Password123");
@@ -258,7 +239,6 @@ public class LibraryTest {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
 
-        Library library = new Library();
         LibraryUI ui = new LibraryUI(library);
         library.getBookByTitle("Threads of Tomorrow").setAvailabilityStatus(Book.Status.CHECKED_OUT);
         library.getBookByTitle("Threads of Tomorrow").setDueDate("2025-09-30");
@@ -273,7 +253,6 @@ public class LibraryTest {
     @Test
     @DisplayName("Querying a borrow for the 1st book, The Great Gatsby should return that book")
     void RESP_10_test_01(){
-        Library library = new Library();
         LibraryUI ui = new LibraryUI(library);
         library.login("Bob_White", "Password123");
         Book book = ui.queryBorrow(1);
@@ -284,7 +263,6 @@ public class LibraryTest {
     @Test
     @DisplayName("Querying a borrow for the 21st book, which doesn't exist (should be null)")
     void RESP_10_test_02(){
-        Library library = new Library();
         LibraryUI ui = new LibraryUI(library);
         library.login("Bob_White", "Password123");
         Book book = ui.queryBorrow(21);
@@ -295,7 +273,6 @@ public class LibraryTest {
     @Test
     @DisplayName("A book that is checked out should not be valid")
     void RESP_11_test_01(){
-        Library library = new Library();
         Book book = library.getBookByTitle("The Great Gatsby");
         book.setAvailabilityStatus(Book.Status.CHECKED_OUT);
 
@@ -307,7 +284,6 @@ public class LibraryTest {
     @Test
     @DisplayName("A book that is on hold should not be valid")
     void RESP_11_test_02(){
-        Library library = new Library();
         Book book = library.getBookByTitle("The Great Gatsby");
         book.setAvailabilityStatus(Book.Status.ON_HOLD);
 
@@ -319,7 +295,6 @@ public class LibraryTest {
     @Test
     @DisplayName("A book that is available should be valid")
     void RESP_11_test_03(){
-        Library library = new Library();
         Book book = library.getBookByTitle("The Great Gatsby");
         book.setAvailabilityStatus(Book.Status.AVAILABLE);
 
@@ -331,7 +306,6 @@ public class LibraryTest {
     @Test
     @DisplayName("A borrower that has no books borrowed should be valid")
     void RESP_12_test_01(){
-        Library library = new Library();
         Borrower borrower = library.getBorrowerByName("Bob_White");
         Borrower borrower2 = library.verifyBorrowerEligibility(borrower);
 
@@ -341,7 +315,6 @@ public class LibraryTest {
     @Test
     @DisplayName("A borrower that has two books borrowed should be valid")
     void RESP_12_test_02(){
-        Library library = new Library();
         Borrower borrower = library.getBorrowerByName("Bob_White");
         borrower.addBook(new Book("", ""));
         borrower.addBook(new Book("", ""));
@@ -354,7 +327,6 @@ public class LibraryTest {
     @Test
     @DisplayName("A borrower that has three books borrowed should not be valid")
     void RESP_12_test_03(){
-        Library library = new Library();
         Borrower borrower = library.getBorrowerByName("Bob_White");
         borrower.addBook(new Book("", ""));
         borrower.addBook(new Book("", ""));
@@ -368,7 +340,6 @@ public class LibraryTest {
     @Test
     @DisplayName("See if a basic 14 day due date is calculated correctly.")
     void RESP_13_test_01(){
-        Library library = new Library();
         Book book = library.getBookByTitle("The Great Gatsby");
 
         // library: initialDate = 2025-10-01
@@ -381,7 +352,6 @@ public class LibraryTest {
     @Test
     @DisplayName("See if a 14 day due date is calculated correctly over a year")
     void RESP_13_test_02(){
-        Library library = new Library();
         Book book = library.getBookByTitle("The Great Gatsby");
 
         library.setDate("2025-12-29");
@@ -394,7 +364,6 @@ public class LibraryTest {
     @Test
     @DisplayName("See if a 14 day due date is calculated correctly for a leap year")
     void RESP_13_test_03(){
-        Library library = new Library();
         Book book = library.getBookByTitle("The Great Gatsby");
 
         // (leap day)

@@ -1,4 +1,5 @@
 import main.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -9,6 +10,14 @@ import java.io.PrintStream;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class UITest {
+
+    private Library library;
+
+    @BeforeEach
+    void setUpLibrary() {
+        library = new Library();
+    }
+
 
     @Test
     @DisplayName("The system should prompt the user for their username")
@@ -21,8 +30,6 @@ public class UITest {
         ByteArrayInputStream inContent = new ByteArrayInputStream("user\npass\n".getBytes());
         System.setIn(inContent);
 
-        // init the library and UI
-        Library library = new Library();
         LibraryUI ui = new LibraryUI(library);
         ui.promptCredentials();
 
@@ -45,8 +52,6 @@ public class UITest {
         ByteArrayInputStream inContent = new ByteArrayInputStream("user\npass\n".getBytes());
         System.setIn(inContent);
 
-        // init the library and UI
-        Library library = new Library();
         LibraryUI ui = new LibraryUI(library);
         ui.promptCredentials();
 
@@ -69,8 +74,6 @@ public class UITest {
         ByteArrayInputStream inContent = new ByteArrayInputStream("user\npass\n".getBytes());
         System.setIn(inContent);
 
-        // init the library and UI
-        Library library = new Library();
         LibraryUI ui = new LibraryUI(library);
         ui.promptCredentials();
 
@@ -99,8 +102,6 @@ public class UITest {
         ByteArrayInputStream inContent = new ByteArrayInputStream("1\n".getBytes());
         System.setIn(inContent);
 
-        // init the library and UI
-        Library library = new Library();
         LibraryUI ui = new LibraryUI(library);
         library.login("Bob_White", "Password123");
         ui.mainOptions();
@@ -123,8 +124,6 @@ public class UITest {
         ByteArrayInputStream inContent = new ByteArrayInputStream("1\n".getBytes());
         System.setIn(inContent);
 
-        // init the library and UI
-        Library library = new Library();
         LibraryUI ui = new LibraryUI(library);
         library.login("Bob_White", "Password123");
         ui.mainOptions();
@@ -147,8 +146,6 @@ public class UITest {
         ByteArrayInputStream inContent = new ByteArrayInputStream("1\n".getBytes());
         System.setIn(inContent);
 
-        // init the library and UI
-        Library library = new Library();
         LibraryUI ui = new LibraryUI(library);
         library.login("Bob_White", "Password123");
         ui.mainOptions();
@@ -171,7 +168,6 @@ public class UITest {
         ByteArrayInputStream inContent = new ByteArrayInputStream("1\n".getBytes());
         System.setIn(inContent);
 
-        Library library = new Library();
         LibraryUI ui = new LibraryUI(library);
         ui.confirmBorrowOperation(new Book("book title", ""));
 
@@ -192,7 +188,6 @@ public class UITest {
         ByteArrayInputStream inContent = new ByteArrayInputStream("1\n".getBytes());
         System.setIn(inContent);
 
-        Library library = new Library();
         LibraryUI ui = new LibraryUI(library);
         ui.confirmBorrowOperation(new Book("book title", ""));
 
@@ -213,7 +208,6 @@ public class UITest {
         ByteArrayInputStream inContent = new ByteArrayInputStream("1\n".getBytes());
         System.setIn(inContent);
 
-        Library library = new Library();
         LibraryUI ui = new LibraryUI(library);
         ui.confirmBorrowOperation(new Book("book title", ""));
 
